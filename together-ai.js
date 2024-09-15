@@ -77,7 +77,7 @@ const getModels = async () => {
 }
 
 const test = async () => {
-    const systemPrompt = "You are an expert in simplifying sentences while preserving meaning. \n\n\n\nYou split each sentence into one sentences that have only one independent clause.\n\n\n\nYou preserve the vocabulary used wherever possible.";
+    const systemPrompt = ''
     //const info = await simpleQa('Hello', 'meta-llama/Llama-3-70b-chat-hf');
     const models = await getModels();
     console.log(models);
