@@ -1,6 +1,7 @@
 require ('dotenv').config();
 const lodash = require('lodash');
 const axios = require('axios');
+const config = require('./config.json');
 
 const { TOGETHER_API_TOKEN } = process.env;
 
@@ -16,10 +17,6 @@ const togetherAiHeaders = () => {
 
 /** 
  * Available Options: https://docs.together.ai/reference/chat-completions-1
- *      
- *      max_tokens: integer
- *      temperature: float
- * 
  */
 
 const chatCompletions = async (model, messages, options = {}) => {
@@ -76,6 +73,12 @@ const getModels = async () => {
     }
 }
 
+const simplifyText = async (text) => {
+    const query = 'Text:\n' + text;
+    const result = await simpleQa(query, 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo', config.simplifyTextSystemPrompt);
+    console.log(result);
+}
+
 const test = async () => {
     const systemPrompt = ''
     //const info = await simpleQa('Hello', 'meta-llama/Llama-3-70b-chat-hf');
@@ -85,4 +88,6 @@ const test = async () => {
 
 
 
-test();
+simplifyText(`Conway assumed the role as North America CEO in April this year as the company was grappling with weak demand for its pricey lattes in the U.S.
+
+Niccol, who took over from Laxman Narasimhan in a surprise appointment last month, said in an open letter that he would initially focus on ensuring the U.S. stores deliver drinks and food on time, as well as re-establishing the coffeehouse culture at its outlets.`)
